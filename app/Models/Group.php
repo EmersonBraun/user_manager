@@ -33,7 +33,8 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'group'
+        'group',
+        'created_at'
     ];
 
     /**
@@ -64,4 +65,8 @@ class Group extends Model
      */
     protected $dates = [];
 
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'groups_has_users');
+    }
 }

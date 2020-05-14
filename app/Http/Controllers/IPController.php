@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IPRequest;
+use App\Http\Requests\IPRequestUpdate;
 use App\Repositories\IPRepository;
 
 class IPController extends Controller
@@ -39,7 +40,7 @@ class IPController extends Controller
     */
     public function index()
     {
-        $response = $this->repository->all();
+        $response = $this->repository->listIPWithUsers();
         return response()->json($response->data, $response->status, $response->headers, $response->options);
     }
 
@@ -103,7 +104,7 @@ class IPController extends Controller
     */
     public function show($id)
     {
-        $response = $this->repository->findOrFail($id);
+        $response = $this->repository->showUser($id);
         return response()->json($response->data, $response->status, $response->headers, $response->options);
     }
 
@@ -136,7 +137,7 @@ class IPController extends Controller
     *     ),
     * )
     */
-    public function update(IPRequest $request, $id)
+    public function update(IPRequestUpdate $request, $id)
     {
         $response = $this->repository->findAndUpdate($id, $request->all());
         return response()->json($response->data, $response->status, $response->headers, $response->options);

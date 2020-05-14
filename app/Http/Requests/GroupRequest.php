@@ -8,9 +8,11 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\ResponseTrait;
 
 class GroupRequest extends FormRequest
 {
+    use ResponseTrait;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,7 +31,7 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required'
+            'group' => 'required|unique:groups,group'
         ];
     }
 

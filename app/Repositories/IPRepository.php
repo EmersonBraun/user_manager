@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\IP;
+use App\Models\User;
 use App\Repositories\BaseRepository;
 
 use App\Traits\ResponseTrait;
@@ -26,21 +27,62 @@ class IPRepository extends BaseRepository
 		$this->model = $model;
     }
 
-    /**
-     * Example of expecific action from IPRepositorie.
-     * CRUD functions are inherited from BaseRepository
-     *
-     * @return array
-     */
-    public function example($foo, $bar)
+    public function listIPWithUsers()
     {
         try{
-            $this->obj = $this->model->where(['name'=> $foo, 'age' => $bar])->get();
+            $this->obj = $this->model
+                    ->join('users', 'users.ip', '=', 'ips.ip')
+                    ->get();
             $this->statusCode = 200;
         } catch(\Throwable $th) {
-            $this->returnContent = $th->getMessage();
+            $this->contentError = $th->getMessage();
         }
-        $typeFunction = 'load'; // may load,found,create,update,delete,restore or forceDelete
-        return $this->mountReturn($typeFunction, $this->obj, $this->statusCode, $this->contentError);
+        return $this->mountReturn('load', $this->obj, $this->statusCode, $this->contentError);
+    }
+
+    public function useIp($ip)
+    {
+        try{
+            $this->obj = $this->model->where('ip', $ip)->first()->update(['used'=>true]);
+            $this->statusCode = 200;
+        } catch(\Throwable $th) {
+            $this->contentError = $th->getMessage();
+        }
+        return $this->mountReturn('update', $this->obj, $this->statusCode, $this->contentError);
+    }
+
+    public function toogleIp($data)
+    {
+        $oldIp = $data['old']['ip'] ?? false;
+        $newIp = $data['new']['ip'] ?? false;
+        $ips = ['old' => $oldIp, 'new' => $newIp];
+        if ($oldIp == $newIp || !$oldIp || !$newIp) return $this->mountReturn('update', $ips, 200, '');
+        else {
+            try{
+                $ips['old'] = $this->model->where('ip',$oldIp)->first()->update(['used'=>false]);
+                $this->statusCode = 200;
+            } catch(\Throwable $th) {
+                $this->contentError = $th->getMessage();
+            }
+
+            try{
+                $ips['new'] = $this->model->where('ip',$newIp)->first()->update(['used'=>true]);
+                $this->statusCode = 200;
+            } catch(\Throwable $th) {
+                $this->contentError = $th->getMessage();
+            }
+            return $this->mountReturn('update', $ips, $this->statusCode, $this->contentError);
+        }
+    }
+
+    public function showUser($id)
+    {
+        try{
+            $this->obj = $this->model->find($id)->with(['user'])->first();
+            $this->statusCode = 200;
+        } catch(\Throwable $th) {
+            $this->contentError = $th->getMessage();
+        }
+        return $this->mountReturn('load', $this->obj, $this->statusCode, $this->contentError);
     }
 }

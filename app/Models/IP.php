@@ -34,7 +34,8 @@ class IP extends Model
      */
     protected $fillable = [
         'ip',
-        'used'
+        'used',
+        'created_at'
     ];
 
     /**
@@ -65,4 +66,8 @@ class IP extends Model
      */
     protected $dates = [];
 
+    public function user()
+    {
+        return $this->hasOne('App\Models\User','ip','ip');
+    }
 }

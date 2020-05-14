@@ -33,7 +33,9 @@ class Ramal extends Model
      * @var array
      */
     protected $fillable = [
-        'ramal'
+        'ramal',
+        'used',
+        'created_at'
     ];
 
     /**
@@ -63,5 +65,10 @@ class Ramal extends Model
      * @var array
      */
     protected $dates = [];
+
+    public function sector()
+    {
+        return $this->belongsTo('App\Models\Sector');
+    }
 
 }

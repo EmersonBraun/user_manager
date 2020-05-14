@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RamalRequest;
+use App\Http\Requests\RamalRequestUpdate;
 use App\Repositories\RamalRepository;
 
 class RamalController extends Controller
@@ -103,7 +104,7 @@ class RamalController extends Controller
     */
     public function show($id)
     {
-        $response = $this->repository->findOrFail($id);
+        $response = $this->repository->getSectors($id);
         return response()->json($response->data, $response->status, $response->headers, $response->options);
     }
 
@@ -136,7 +137,7 @@ class RamalController extends Controller
     *     ),
     * )
     */
-    public function update(RamalRequest $request, $id)
+    public function update(RamalRequestUpdate $request, $id)
     {
         $response = $this->repository->findAndUpdate($id, $request->all());
         return response()->json($response->data, $response->status, $response->headers, $response->options);

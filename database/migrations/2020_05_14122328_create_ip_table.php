@@ -15,7 +15,7 @@ class IPTable extends Migration
     {
         Schema::create('ips', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->ipAddress('ip');
+            $table->string('ip');
             $table->timestamps();
             $table->boolean('used')->default(false);
         });

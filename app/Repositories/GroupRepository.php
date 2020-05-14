@@ -26,21 +26,14 @@ class GroupRepository extends BaseRepository
 		$this->model = $model;
     }
 
-    /**
-     * Example of expecific action from GroupRepositorie.
-     * CRUD functions are inherited from BaseRepository
-     *
-     * @return array
-     */
-    public function example($foo, $bar)
+    public function getUsers($id)
     {
         try{
-            $this->obj = $this->model->where(['name'=> $foo, 'age' => $bar])->get();
+            $this->obj = $this->model->find($id)->with(['users'])->first();
             $this->statusCode = 200;
         } catch(\Throwable $th) {
-            $this->returnContent = $th->getMessage();
+            $this->contentError = $th->getMessage();
         }
-        $typeFunction = 'load'; // may load,found,create,update,delete,restore or forceDelete
-        return $this->mountReturn($typeFunction, $this->obj, $this->statusCode, $this->contentError);
+        return $this->mountReturn('load', $this->obj, $this->statusCode, $this->contentError);
     }
 }

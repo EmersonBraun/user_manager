@@ -10,7 +10,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ResponseTrait;
 
-class RamalRequest extends FormRequest
+class IPRequestUpdate extends FormRequest
 {
     use ResponseTrait;
     /**
@@ -31,7 +31,7 @@ class RamalRequest extends FormRequest
     public function rules()
     {
         return [
-            'ramal' => 'required|min:4|unique:ramals,ramal'
+            'ip' => 'required'
         ];
     }
 

@@ -8,9 +8,11 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\ResponseTrait;
 
 class SectorRequest extends FormRequest
 {
+    use ResponseTrait;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,7 +31,8 @@ class SectorRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required'
+            'sector' => 'required|unique:sectors,sector',
+            'localization' => 'required'
         ];
     }
 

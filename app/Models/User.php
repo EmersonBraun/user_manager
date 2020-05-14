@@ -33,7 +33,12 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'id',
+        'name',
+        'sector_id',
+        'graduation_id',
+        'ip',
+        'created_at'
     ];
 
     /**
@@ -41,7 +46,7 @@ class User extends Model
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
@@ -64,4 +69,23 @@ class User extends Model
      */
     protected $dates = [];
 
+    public function groups()
+    {
+        return $this->belongsToMany('App\Models\Group', 'groups_has_users');
+    }
+
+    public function sector()
+    {
+        return $this->belongsTo('App\Models\Sector');
+    }
+
+    public function graduation()
+    {
+        return $this->belongsTo('App\Models\Graduation');
+    }
+
+    public function ip()
+    {
+        return $this->belongsTo('App\Models\IP');
+    }
 }

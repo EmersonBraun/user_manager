@@ -112,17 +112,21 @@ class BaseRepository
      */
     public function findAndUpdate($id, array $data)
     {
-        $res = $this->model->findOrFail($id);
-        try {
-            $res->update($data);
-            $this->obj = $res->getChanges();
-            $this->statusCode = 200;
-        } catch (\Throwable $th) {
-            $this->contentError = $th->getMessage();
-            $this->statusCode = 400;
-        }
 
-        return $this->mountReturn('update', $this->obj, $this->statusCode, $this->contentError);
+        $res = $this->model->find($id);
+        $data['old'] = $res->toArray();
+        if (!$res) return $this->mountReturn('update', $this->obj, $this->statusCode, "Searched id not exists");
+        else {
+            try {
+                $res->update($data);
+                $this->statusCode = 200;
+            } catch (\Throwable $th) {
+                $this->contentError = $th->getMessage();
+                $this->statusCode = 400;
+            }
+            $data['new'] = $res->getChanges();
+            return $this->mountReturn('update', $data, $this->statusCode, $this->contentError);
+        }
     }
 
     /**

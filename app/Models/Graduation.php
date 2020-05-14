@@ -33,7 +33,8 @@ class Graduation extends Model
      * @var array
      */
     protected $fillable = [
-        'graduation'
+        'graduation',
+        'created_at'
     ];
 
     /**
@@ -63,5 +64,10 @@ class Graduation extends Model
      * @var array
      */
     protected $dates = [];
+
+    public function users()
+    {
+        return $this->hasMany('App\Models\User');
+    }
 
 }

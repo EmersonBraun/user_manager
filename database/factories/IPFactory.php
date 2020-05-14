@@ -18,9 +18,10 @@ use App\Models\IP;
 | Consult database/factories/Faker.md to see the available fakers 
 |
 */
-$baseIp = '10.147.214.';
 $factory->define(IP::class, function (Faker $faker) {
+    $baseIp = '10.147.214.';
     return [
         'ip' => $baseIp.$faker->numberBetween(0, 255),
+        'used' => false
     ];
 });

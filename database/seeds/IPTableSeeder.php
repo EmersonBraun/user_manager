@@ -18,6 +18,7 @@ class IPTableSeeder extends Seeder
             IP::create([
                 'ip' => $baseIp.$i,
                 'used' => false,
+                'created_at' => date('Y-m-d H:i:s')
             ]);
         }
     }

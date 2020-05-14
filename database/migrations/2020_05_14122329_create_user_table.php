@@ -20,11 +20,10 @@ class UserTable extends Migration
             $table->softDeletes();
             $table->unsignedBigInteger('sector_id');
             $table->unsignedBigInteger('graduation_id');
-            $table->unsignedBigInteger('ip_id');
+            $table->string('ip');
 
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
             $table->foreign('graduation_id')->references('id')->on('graduations')->onDelete('cascade');
-            $table->foreign('ip_id')->references('id')->on('ips')->onDelete('cascade');
         });
     }
 

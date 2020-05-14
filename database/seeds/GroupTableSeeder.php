@@ -14,7 +14,7 @@ class GroupTableSeeder extends Seeder
     public function run()
     {
         foreach (config('groups') as $group) {
-            Group::create(['group' => $group]);
+            Group::create(['group' => $group, 'created_at' => date('Y-m-d H:i:s')]);
         }
     }
 }

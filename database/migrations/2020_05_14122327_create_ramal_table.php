@@ -15,9 +15,10 @@ class RamalTable extends Migration
     {
         Schema::create('ramals', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ramal');
+            $table->bigInteger('ramal');
+            $table->boolean('used')->default(false);
             $table->timestamps();
-            $table->unsignedBigInteger('sector_id');
+            $table->unsignedBigInteger('sector_id')->nullable();
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
         });
     }

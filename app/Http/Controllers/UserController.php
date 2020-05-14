@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
+use App\Repositories\IPRepository;
 
 class UserController extends Controller
 {
     protected $repository;
-    public function __construct(UserRepository $repository)
+    protected $ip;
+    public function __construct(
+        UserRepository $repository,
+        IPRepository $ip
+    )
 	{
         $this->repository = $repository;
+        $this->ip = $ip;
     }
 
     /**
@@ -39,7 +45,7 @@ class UserController extends Controller
     */
     public function index()
     {
-        $response = $this->repository->all();
+        $response = $this->repository->listUsers();
         return response()->json($response->data, $response->status, $response->headers, $response->options);
     }
 
@@ -69,6 +75,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $response = $this->repository->create($request->all());
+        $ip = $this->ip->useIp($request->ip);
         return response()->json($response->data, $response->status, $response->headers, $response->options);
     }
 
@@ -103,7 +110,7 @@ class UserController extends Controller
     */
     public function show($id)
     {
-        $response = $this->repository->findOrFail($id);
+        $response = $this->repository->showUser($id);
         return response()->json($response->data, $response->status, $response->headers, $response->options);
     }
 
@@ -139,6 +146,9 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $response = $this->repository->findAndUpdate($id, $request->all());
+        if ($response->data) {
+            $ip = $this->ip->toogleIp($response->data);
+        }
         return response()->json($response->data, $response->status, $response->headers, $response->options);
     }
 

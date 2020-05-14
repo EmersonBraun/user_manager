@@ -14,6 +14,7 @@ class SectorTableSeeder extends Seeder
     public function run()
     {
         foreach (config('sectors') as $sector) {
+            $sector['created_at'] = date('Y-m-d H:i:s');
             Sector::create($sector);
         }
     }

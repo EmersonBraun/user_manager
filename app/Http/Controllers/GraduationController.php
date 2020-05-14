@@ -103,7 +103,7 @@ class GraduationController extends Controller
     */
     public function show($id)
     {
-        $response = $this->repository->findOrFail($id);
+        $response = $this->repository->getUsers($id);
         return response()->json($response->data, $response->status, $response->headers, $response->options);
     }
 

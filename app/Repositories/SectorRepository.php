@@ -26,12 +26,6 @@ class SectorRepository extends BaseRepository
 		$this->model = $model;
     }
 
-    /**
-     * Example of expecific action from SectorRepositorie.
-     * CRUD functions are inherited from BaseRepository
-     *
-     * @return array
-     */
     public function example($foo, $bar)
     {
         try{
@@ -42,5 +36,16 @@ class SectorRepository extends BaseRepository
         }
         $typeFunction = 'load'; // may load,found,create,update,delete,restore or forceDelete
         return $this->mountReturn($typeFunction, $this->obj, $this->statusCode, $this->contentError);
+    }
+
+    public function getRamalsAndUsers($id)
+    {
+        try{
+            $this->obj = $this->model->find($id)->with(['ramals','users'])->first();
+            $this->statusCode = 200;
+        } catch(\Throwable $th) {
+            $this->contentError = $th->getMessage();
+        }
+        return $this->mountReturn('load', $this->obj, $this->statusCode, $this->contentError);
     }
 }

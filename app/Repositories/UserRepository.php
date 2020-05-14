@@ -26,21 +26,29 @@ class UserRepository extends BaseRepository
 		$this->model = $model;
     }
 
-    /**
-     * Example of expecific action from UserRepositorie.
-     * CRUD functions are inherited from BaseRepository
-     *
-     * @return array
-     */
-    public function example($foo, $bar)
+    public function listUsers()
     {
         try{
-            $this->obj = $this->model->where(['name'=> $foo, 'age' => $bar])->get();
+            $this->obj = $this->model
+                    ->selectRaw('users.*, graduations.graduation')
+                    ->join('sectors', 'users.sector_id', '=', 'sectors.id')
+                    ->join('graduations', 'users.graduation_id', '=', 'graduations.id')
+                    ->get();
             $this->statusCode = 200;
         } catch(\Throwable $th) {
-            $this->returnContent = $th->getMessage();
+            $this->contentError = $th->getMessage();
         }
-        $typeFunction = 'load'; // may load,found,create,update,delete,restore or forceDelete
-        return $this->mountReturn($typeFunction, $this->obj, $this->statusCode, $this->contentError);
+        return $this->mountReturn('load', $this->obj, $this->statusCode, $this->contentError);
+    }
+
+    public function showUser($id)
+    {
+        try{
+            $this->obj = $this->model->find($id)->with(['groups','graduation','sector'])->first();
+            $this->statusCode = 200;
+        } catch(\Throwable $th) {
+            $this->contentError = $th->getMessage();
+        }
+        return $this->mountReturn('load', $this->obj, $this->statusCode, $this->contentError);
     }
 }

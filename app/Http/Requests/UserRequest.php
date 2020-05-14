@@ -8,9 +8,11 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\ResponseTrait;
 
 class UserRequest extends FormRequest
 {
+    use ResponseTrait;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,7 +31,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required'
+            'name' => 'required',
+            'sector_id' => 'required|exists:sectors,id',
+            'graduation_id' => 'required|exists:graduations,id',
+            'ip' => 'required|exists:ips,ip',
         ];
     }
 

@@ -34,7 +34,8 @@ class Sector extends Model
      */
     protected $fillable = [
         'sector',
-        'localization'
+        'localization',
+        'created_at'
     ];
 
     /**
@@ -65,4 +66,13 @@ class Sector extends Model
      */
     protected $dates = [];
 
+    public function ramals()
+    {
+        return $this->hasMany('App\Models\Ramal');
+    }
+
+    public function users()
+    {
+        return $this->hasMany('App\Models\User');
+    }
 }

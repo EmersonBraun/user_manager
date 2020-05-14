@@ -22,12 +22,13 @@ use App\Models\IP;
 | Consult database/factories/Faker.md to see the available fakers 
 |
 */
-
 $factory->define(User::class, function (Faker $faker) {
+    $baseIp = '10.147.214.';
     return [
         'name' => $faker->name,
         'sector_id' => Sector::all()->random()->id,
         'graduation_id' => Graduation::all()->random()->id,
-        'ip_id' => IP::all()->random()->id,
+        'ip' => $baseIp.$faker->numberBetween(0, 255),
+        'created_at' => date('Y-m-d H:i:s')
     ];
 });

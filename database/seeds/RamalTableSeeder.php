@@ -13,10 +13,12 @@ class RamalTableSeeder extends Seeder
      */
     public function run()
     {
-        // foreach (config('ramals') as $ramal) {
-        //     Ramal::create(['ramal' => $ramal]);
-        // }
-        $amount = 10;
-        factory(Ramal::class, $amount)->create();
+        for ($i=1050; $i < 1082; $i++) { 
+            Ramal::create([
+                'ramal' => $i,
+                'used' => false,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+        }
     }
 }
