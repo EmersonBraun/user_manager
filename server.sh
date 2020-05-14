@@ -49,6 +49,14 @@ function EnterTerminal () {
     echo -e "${GREEN}Entering the terminal${NC}"
     docker-compose exec workspace bash
 }
+
+function GetModule () {
+    cd app/Console
+    echo -e "${GREEN}Clone module generator${NC}"
+    git clone https://github.com/EmersonBraun/laravel_module_generator.git Commands
+    echo -e "${GREEN}New command added (generate:module)${NC}"
+}
+
 if [ $1 = "init" ]; then
     InitServer
 elif [ $1 = "up" ]; then
@@ -59,6 +67,8 @@ elif [ $1 = "restart" ]; then
     RestartServer
 elif [ $1 = "terminal" ]; then
     EnterTerminal
+elif [ $1 = "module" ]; then
+    GetModule
 else
     echo -e "$1 ${RED}it's an invalid option${NC}"
     exit 1

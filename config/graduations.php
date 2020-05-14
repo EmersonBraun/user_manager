@@ -1,0 +1,22 @@
+<?php 
+return [
+    'CELAGREG',
+    'CEL',
+    'TENCEL',
+    'MAJ',
+    'CAP',
+    '1TEN',
+    '2TEN',
+    'ASPOF',
+    'ALUNO',
+    'ALUNO3A',
+    'ALUNO2A',
+    'ALUNO1A',
+    'SUBTEN',
+    '1SGT',
+    '2SGT',
+    '3SGT',
+    'CABO',
+    'SD1C',
+    'SD2C'
+];
