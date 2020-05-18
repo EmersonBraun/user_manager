@@ -10,7 +10,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ResponseTrait;
 
-class UserRequest extends FormRequest
+class ContactRequest extends FormRequest
 {
     use ResponseTrait;
     /**
@@ -31,9 +31,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'number' => 'required',
+            'phone_type_id' => 'required|exists:phone_types,id',
+            'user_id' => 'required|exists:users,id',
             'sector_id' => 'required|exists:sectors,id',
-            'graduation_id' => 'required|exists:graduations,id'
         ];
     }
 

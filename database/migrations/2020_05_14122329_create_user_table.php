@@ -16,11 +16,11 @@ class UserTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('ip');
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('sector_id');
             $table->unsignedBigInteger('graduation_id');
-            $table->string('ip');
 
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
             $table->foreign('graduation_id')->references('id')->on('graduations')->onDelete('cascade');

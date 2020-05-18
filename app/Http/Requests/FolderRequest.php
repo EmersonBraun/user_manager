@@ -10,7 +10,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ResponseTrait;
 
-class UserRequest extends FormRequest
+class FolderRequest extends FormRequest
 {
     use ResponseTrait;
     /**
@@ -31,9 +31,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'sector_id' => 'required|exists:sectors,id',
-            'graduation_id' => 'required|exists:graduations,id'
+            'folder' => 'required|unique:folders,folder'
         ];
     }
 

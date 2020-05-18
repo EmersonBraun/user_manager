@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Database\Eloquent\SoftDeletes;
-class User extends Model
+class PhoneType extends Model
 {
     /**
      * When models are soft deleted, they are not actually removed from your database.
@@ -18,7 +18,7 @@ class User extends Model
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'phone_types';
 
      /**
      * The primary key associated with the table.
@@ -33,12 +33,7 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'name',
-        'sector_id',
-        'graduation_id',
-        'ip',
-        'created_at'
+        'phone_type'
     ];
 
     /**
@@ -46,7 +41,7 @@ class User extends Model
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be cast to native types.
@@ -69,29 +64,8 @@ class User extends Model
      */
     protected $dates = [];
 
-    public function groups()
-    {
-        return $this->belongsToMany('App\Models\Group', 'groups_has_users');
-    }
-
-    public function sector()
-    {
-        return $this->belongsTo('App\Models\Sector');
-    }
-
-    public function graduation()
-    {
-        return $this->belongsTo('App\Models\Graduation');
-    }
-
-    public function ip()
-    {
-        return $this->belongsTo('App\Models\IP');
-    }
-
     public function contacts()
     {
         return $this->hasMany('App\Models\Contact');
     }
-
 }

@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Ramal;
+use App\Models\Contact;
 use App\Repositories\BaseRepository;
 
 use App\Traits\ResponseTrait;
 /**
 * Repository Pattern allows encapsulation of data access logic
 */
-class RamalRepository extends BaseRepository
+class ContactRepository extends BaseRepository
 {
     use ResponseTrait;
 
@@ -21,15 +21,15 @@ class RamalRepository extends BaseRepository
     protected $statusCode = 400;
     protected $options = 0;
 
-	public function __construct( Ramal $model )
+	public function __construct( Contact $model )
 	{
 		$this->model = $model;
     }
 
-    public function getSectors($id)
+    public function getAll($id)
     {
         try{
-            $this->obj = $this->model->find($id)->with(['sector'])->first();
+            $this->obj = $this->model->find($id)->with(['users','sectors'])->first();
             $this->statusCode = 200;
         } catch(\Throwable $th) {
             $this->contentError = $th->getMessage();

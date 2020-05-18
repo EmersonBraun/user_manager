@@ -20,28 +20,16 @@ class SectorRepository extends BaseRepository
     protected $returnContent = '';
     protected $statusCode = 400;
     protected $options = 0;
-    
+
 	public function __construct( Sector $model )
 	{
 		$this->model = $model;
     }
 
-    public function example($foo, $bar)
+    public function getAll($id)
     {
         try{
-            $this->obj = $this->model->where(['name'=> $foo, 'age' => $bar])->get();
-            $this->statusCode = 200;
-        } catch(\Throwable $th) {
-            $this->returnContent = $th->getMessage();
-        }
-        $typeFunction = 'load'; // may load,found,create,update,delete,restore or forceDelete
-        return $this->mountReturn($typeFunction, $this->obj, $this->statusCode, $this->contentError);
-    }
-
-    public function getRamalsAndUsers($id)
-    {
-        try{
-            $this->obj = $this->model->find($id)->with(['ramals','users'])->first();
+            $this->obj = $this->model->find($id)->with(['ramals','users','contacts'])->first();
             $this->statusCode = 200;
         } catch(\Throwable $th) {
             $this->contentError = $th->getMessage();

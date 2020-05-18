@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SectorTable extends Migration
+class FolderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class SectorTable extends Migration
      */
     public function up()
     {
-        Schema::create('sectors', function (Blueprint $table) {
+        Schema::create('folders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sector');
-            $table->string('localization');
-            $table->boolean('active')->default(false);
+            $table->string('folder');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class SectorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sectors');
+        Schema::dropIfExists('folders');
     }
 }

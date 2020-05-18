@@ -20,7 +20,7 @@ class UserRepository extends BaseRepository
     protected $returnContent = '';
     protected $statusCode = 400;
     protected $options = 0;
-    
+
 	public function __construct( User $model )
 	{
 		$this->model = $model;
@@ -30,7 +30,7 @@ class UserRepository extends BaseRepository
     {
         try{
             $this->obj = $this->model
-                    ->selectRaw('users.*, graduations.graduation')
+                    ->selectRaw('users.*, graduations.graduation, sectors.sector')
                     ->join('sectors', 'users.sector_id', '=', 'sectors.id')
                     ->join('graduations', 'users.graduation_id', '=', 'graduations.id')
                     ->get();
@@ -44,7 +44,7 @@ class UserRepository extends BaseRepository
     public function showUser($id)
     {
         try{
-            $this->obj = $this->model->find($id)->with(['groups','graduation','sector'])->first();
+            $this->obj = $this->model->find($id)->with(['groups','graduation','sector','contacts'])->first();
             $this->statusCode = 200;
         } catch(\Throwable $th) {
             $this->contentError = $th->getMessage();

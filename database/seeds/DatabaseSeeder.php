@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
             SectorTableSeeder::class,
             RamalTableSeeder::class,
             UserTableSeeder::class,
+            PhoneTypeTableSeeder::class,
+            FolderTableSeeder::class,
+            ContactTableSeeder::class,
         ]);
     }
 }

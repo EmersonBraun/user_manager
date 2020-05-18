@@ -59,4 +59,31 @@ Route::group(['as'=>'group.','prefix' =>'group'],function(){
     Route::get('/{id}',['as' =>'show','uses'=>'GroupController@show']);
     Route::put('/{id}',['as' =>'update','uses'=>'GroupController@update']);
     Route::delete('/{id}',['as' =>'destroy','uses'=>'GroupController@destroy']);
+});// routes from Folder module
+Route::group(['as'=>'folder.','prefix' =>'folder'],function(){
+    Route::get('',['as' =>'index','uses'=>'FolderController@index']);
+    Route::post('',['as' =>'store','uses'=>'FolderController@store']);
+    Route::get('/{id}',['as' =>'show','uses'=>'FolderController@show']);
+    Route::put('/{id}',['as' =>'update','uses'=>'FolderController@update']);
+    Route::delete('/{id}',['as' =>'destroy','uses'=>'FolderController@destroy']);
+    // Route::put('update/{id}',['as' =>'restore','uses'=>'FolderController@restore']); // to restore folder, if use softDelete
+    // Route::delete('destroy/{id}',['as' =>'forceDelete','uses'=>'FolderController@forceDelete']); // to remove folder definitely, if use softDelete
+});// routes from Fonetype module
+Route::group(['as'=>'fonetype.','prefix' =>'fonetype'],function(){
+    Route::get('',['as' =>'index','uses'=>'FonetypeController@index']);
+    Route::post('',['as' =>'store','uses'=>'FonetypeController@store']);
+    Route::get('/{id}',['as' =>'show','uses'=>'FonetypeController@show']);
+    Route::put('/{id}',['as' =>'update','uses'=>'FonetypeController@update']);
+    Route::delete('/{id}',['as' =>'destroy','uses'=>'FonetypeController@destroy']);
+    // Route::put('update/{id}',['as' =>'restore','uses'=>'FonetypeController@restore']); // to restore fonetype, if use softDelete
+    // Route::delete('destroy/{id}',['as' =>'forceDelete','uses'=>'FonetypeController@forceDelete']); // to remove fonetype definitely, if use softDelete
+});// routes from Contact module
+Route::group(['as'=>'contact.','prefix' =>'contact'],function(){
+    Route::get('',['as' =>'index','uses'=>'ContactController@index']);
+    Route::post('',['as' =>'store','uses'=>'ContactController@store']);
+    Route::get('/{id}',['as' =>'show','uses'=>'ContactController@show']);
+    Route::put('/{id}',['as' =>'update','uses'=>'ContactController@update']);
+    Route::delete('/{id}',['as' =>'destroy','uses'=>'ContactController@destroy']);
+    // Route::put('update/{id}',['as' =>'restore','uses'=>'ContactController@restore']); // to restore contact, if use softDelete
+    // Route::delete('destroy/{id}',['as' =>'forceDelete','uses'=>'ContactController@forceDelete']); // to remove contact definitely, if use softDelete
 });
